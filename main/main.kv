@@ -1,0 +1,141 @@
+ScreenManager:
+    MenuScreen:
+        name: "menu"
+    MemberScreen:
+        name: "member"
+    CalenderScreen:
+        name: "calendar"
+
+<MenuScreen>:
+    canvas.before:
+        Rectangle:
+            source: 'images/MenuBackground.jpg'
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:  #レイアウト
+        orientation: 'vertical' #縦に
+        spacing: 20
+        padding: 50
+
+        Label:
+            text: "サークル管理アプリ"
+            font_size: '28sp'
+            font_name: "fonts/meiryo.ttc"
+            color: 0, 0, 0, 1
+            bold: True
+
+        Button:
+            text: "名簿管理画面（準備中）"
+            font_size: '24sp'
+            font_name: "fonts/meiryo.ttc"
+            background_normal: ''
+            background_color: 0.3, 0.6, 0.9, 1
+            color: 1, 1, 1, 1
+            size_hint_y: None
+            height: 60
+            on_press: root.manager.current = "member" #画面遷移
+
+        Button:
+            text: "カレンダー"
+            font_size: '24sp'
+            font_name: "fonts/meiryo.ttc"
+            background_normal: ''
+            background_color: 0.3, 0.8, 0.5, 1
+            color: 1, 1, 1, 1
+            size_hint_y: None
+            height: 60
+            on_press: root.manager.current = "calendar" #画面遷移
+
+        Button:
+            text: "終了"
+            font_size: '24sp'
+            font_name: "fonts/meiryo.ttc"
+            background_normal: ''
+            background_color: 0.8, 0.3, 0.3, 1
+            color: 1, 1, 1, 1
+            size_hint_y: None
+            height: 60
+            on_press: app.stop() #画面遷移
+
+<MemberScreen>:
+    canvas.before: 
+        Rectangle:
+            source: 'images/MenuBackground.jpg'
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:  #レイアウト
+        orientation: 'vertical' #縦に
+        spacing: 20
+        padding: 50
+
+        Label:
+            text: "名簿管理"
+            font_size: '28sp'
+            font_name: "fonts/meiryo.ttc"
+            color: 0, 0, 0, 1
+            bold: True
+
+        Button:
+            text: "戻る"
+            font_size: '24sp'
+            font_name: "fonts/meiryo.ttc"
+            background_normal: ''
+            background_color: 0.8, 0.3, 0.3, 1
+            color: 1, 1, 1, 1
+            size_hint_y: None
+            height: 60
+            on_press: root.manager.current = "menu" #画面遷移
+
+        Button:
+            text: "戻る"
+            font_size: '24sp'
+            font_name: "fonts/meiryo.ttc"
+            background_normal: ''
+            background_color: 0.8, 0.3, 0.3, 1
+            color: 1, 1, 1, 1
+            size_hint_y: None
+            height: 60
+            on_press: root.manager.current = "menu" #画面遷移
+
+        Button:
+            text: "戻る"
+            font_size: '24sp'
+            font_name: "fonts/meiryo.ttc"
+            background_normal: ''
+            background_color: 0.8, 0.3, 0.3, 1
+            color: 1, 1, 1, 1
+            size_hint_y: None
+            height: 60
+            on_press: root.manager.current = "menu" #画面遷移
+
+<CalenderScreen>:
+    canvas.before:
+        Rectangle:
+            source: 'images/MenuBackground.jpg'
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:  #レイアウト
+        orientation: 'vertical' #縦に
+        spacing: 20
+        padding: 50
+
+        Label:
+            text: "カレンダー画面（準備中）"
+            font_size: '28sp'
+            font_name: "fonts/meiryo.ttc"
+            color: 0, 0, 0, 1
+            bold: True
+
+        Button:
+            text: "戻る"
+            font_size: '24sp'
+            font_name: "fonts/meiryo.ttc"
+            background_normal: ''
+            background_color: 0.8, 0.3, 0.3, 1
+            color: 1, 1, 1, 1
+            size_hint_y: None
+            height: 60
+            on_press: root.manager.current = "menu" #画面遷移
