@@ -3,8 +3,14 @@ ScreenManager:
         name: "menu"
     MemberScreen:
         name: "member"
-    CalenderScreen:
+    CalendarScreen:
         name: "calendar"
+    AddMemberScreen:
+        name: "Addm"
+    UpdateMemberScreen:
+        name: "Updatem"
+    DeleteMemberScreen:
+        name: "Deletem"
 
 <MenuScreen>:
     canvas.before:
@@ -71,22 +77,55 @@ ScreenManager:
         padding: 50
 
         Label:
-            text: "名簿管理"
-            font_size: '28sp'
+            text: "名簿一覧"
             font_name: "fonts/meiryo.ttc"
             color: 0, 0, 0, 1
             bold: True
 
+        GridLayout:
+            id: members_header
+            cols: 7
+
+        ScrollView:
+            BoxLayout:
+                id: members_object
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+            
+
         Button:
-            text: "戻る"
+            text: "追加"
             font_size: '24sp'
             font_name: "fonts/meiryo.ttc"
             background_normal: ''
-            background_color: 0.8, 0.3, 0.3, 1
+            background_color: 1, 0.6, 0.2, 1
             color: 1, 1, 1, 1
             size_hint_y: None
             height: 60
-            on_press: root.manager.current = "menu" #画面遷移
+            on_press: root.manager.current = "Addm" #画面遷移
+
+        Button:
+            text: "更新"
+            font_size: '24sp'
+            font_name: "fonts/meiryo.ttc"
+            background_normal: ''
+            background_color: 0.3, 0.8, 0.5, 1
+            color: 1, 1, 1, 1
+            size_hint_y: None
+            height: 60
+            on_press: root.manager.current = "Updatem" #画面遷移
+
+        Button:
+            text: "削除"
+            font_size: '24sp'
+            font_name: "fonts/meiryo.ttc"
+            background_normal: ''
+            background_color: 0.3, 0.6, 0.9, 1
+            color: 1, 1, 1, 1
+            size_hint_y: None
+            height: 60
+            on_press: root.manager.current = "Deletem" #画面遷移
 
         Button:
             text: "戻る"
@@ -99,6 +138,47 @@ ScreenManager:
             height: 60
             on_press: root.manager.current = "menu" #画面遷移
 
+<CalendarScreen>:
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1  
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:  #レイアウト
+        orientation: 'vertical' #縦に
+
+        BoxLayout:
+            size_hint_y: None
+            height:50
+
+            Button:
+                text: "<"
+                on_press: root.prev_month()
+
+            Label:
+                id: month_label
+                text: root.get_month_year()
+                font_name: "fonts/meiryo.ttc"
+                color: 0, 0, 0, 1
+
+            Button:
+                text: ">"
+                on_press: root.next_month()
+        
+        BoxLayout:
+            id: calendar_header
+            size_hint_y: None
+            height: 40
+            spacing: 1
+
+        GridLayout:
+            id: calendar_grid
+            cols: 7
+            rows: 7
+            spacing: 1
+
         Button:
             text: "戻る"
             font_size: '24sp'
@@ -110,7 +190,7 @@ ScreenManager:
             height: 60
             on_press: root.manager.current = "menu" #画面遷移
 
-<CalenderScreen>:
+<AddMemberScreen>:
     canvas.before:
         Rectangle:
             source: 'images/MenuBackground.jpg'
@@ -123,7 +203,102 @@ ScreenManager:
         padding: 50
 
         Label:
-            text: "カレンダー画面（準備中）"
+            text: "データを入力してください"
+            font_name: "fonts/meiryo.ttc"
+            color: 0, 0, 0, 1
+
+        TextInput:
+            id: name_input
+            hint_text: "名前"
+            multiline: False
+            font_name: "fonts/meiryo.ttc"
+            size_hint_y: None
+            height: 60
+        
+        TextInput:
+            id: university_input
+            hint_text: "大学名"
+            multiline: False
+            font_name: "fonts/meiryo.ttc"
+            size_hint_y: None
+            height: 60
+
+        TextInput:
+            id: faculty_input
+            hint_text: "学部"
+            multiline: False
+            font_name: "fonts/meiryo.ttc"
+            size_hint_y: None
+            height: 60
+
+        TextInput:
+            id: department_input
+            hint_text: "学科"
+            multiline: False
+            font_name: "fonts/meiryo.ttc"
+            size_hint_y: None
+            height: 60
+
+        TextInput:
+            id: entry_year_input
+            hint_text: "入学年度"
+            multiline: False
+            font_name: "fonts/meiryo.ttc"
+            size_hint_y: None
+            height: 60
+
+        TextInput:
+            id: grade_input
+            hint_text: "学年"
+            multiline: False
+            font_name: "fonts/meiryo.ttc"
+            size_hint_y: None
+            height: 60
+
+        TextInput:
+            id: gender_input
+            hint_text: "性別"
+            multiline: False
+            font_name: "fonts/meiryo.ttc"
+            size_hint_y: None
+            height: 60
+
+        Button:
+            text: "追加"
+            font_size: '24sp'
+            font_name: "fonts/meiryo.ttc"
+            background_normal: ''
+            background_color: 1, 0.6, 0.2, 1
+            color: 1, 1, 1, 1
+            size_hint_y: None
+            height: 60
+            on_press: root.do_add(name_input.text,university_input.text,faculty_input.text,department_input.text,entry_year_input.text,grade_input.text,gender_input.text)
+
+        Button:
+            text: "戻る"
+            font_size: '24sp'
+            font_name: "fonts/meiryo.ttc"
+            background_normal: ''
+            background_color: 0.8, 0.3, 0.3, 1
+            color: 1, 1, 1, 1
+            size_hint_y: None
+            height: 60
+            on_press: root.manager.current = "member" #画面遷移
+
+<UpdateMemberScreen>:
+    canvas.before:
+        Rectangle:
+            source: 'images/MenuBackground.jpg'
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:  #レイアウト
+        orientation: 'vertical' #縦に
+        spacing: 20
+        padding: 50
+
+        Label:
+            text: "名簿更新画面（準備中）"
             font_size: '28sp'
             font_name: "fonts/meiryo.ttc"
             color: 0, 0, 0, 1
@@ -138,4 +313,34 @@ ScreenManager:
             color: 1, 1, 1, 1
             size_hint_y: None
             height: 60
-            on_press: root.manager.current = "menu" #画面遷移
+            on_press: root.manager.current = "member" #画面遷移
+
+<DeleteMemberScreen>:
+    canvas.before:
+        Rectangle:
+            source: 'images/MenuBackground.jpg'
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:  #レイアウト
+        orientation: 'vertical' #縦に
+        spacing: 20
+        padding: 50
+
+        Label:
+            text: "名簿削除画面（準備中）"
+            font_size: '28sp'
+            font_name: "fonts/meiryo.ttc"
+            color: 0, 0, 0, 1
+            bold: True
+
+        Button:
+            text: "戻る"
+            font_size: '24sp'
+            font_name: "fonts/meiryo.ttc"
+            background_normal: ''
+            background_color: 0.8, 0.3, 0.3, 1
+            color: 1, 1, 1, 1
+            size_hint_y: None
+            height: 60
+            on_press: root.manager.current = "member" #画面遷移
