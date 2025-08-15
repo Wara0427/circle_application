@@ -11,6 +11,13 @@ ScreenManager:
         name: "Updatem"
     DeleteMemberScreen:
         name: "Deletem"
+    AddScheduleScreen:
+        name: "Addsche"
+    UpdateScheduleScreen:
+        name: "Updatesche"
+    DeleteScheduleScreen:
+        name: "Deletesche"
+
 
 <MenuScreen>:
     canvas.before:
@@ -178,6 +185,43 @@ ScreenManager:
             cols: 7
             rows: 7
             spacing: 1
+
+        BoxLayout:
+            orientation: 'horizontal'
+
+            Button:
+                text: "予定追加"
+                font_size: '24sp'
+                font_name: "fonts/meiryo.ttc"
+                background_normal: ''
+                background_color: 1, 0.6, 0.2, 1
+                color: 1, 1, 1, 1
+                size_hint_y: None
+                height: 60
+                on_press: root.manager.current = "Addsche" #画面遷移
+
+            Button:
+                text: "予定更新"
+                font_size: '24sp'
+                font_name: "fonts/meiryo.ttc"
+                background_normal: ''
+                background_color: 0.3, 0.8, 0.5, 1
+                color: 1, 1, 1, 1
+                size_hint_y: None
+                height: 60
+                on_press: root.manager.current = "Updatesche" #画面遷移
+
+            Button:
+                text: "予定削除"
+                font_size: '24sp'
+                font_name: "fonts/meiryo.ttc"
+                background_normal: ''
+                background_color: 0.3, 0.6, 0.9, 1
+                color: 1, 1, 1, 1
+                size_hint_y: None
+                height: 60
+                on_press: root.manager.current = "Deletesche" #画面遷移
+
 
         Button:
             text: "戻る"
@@ -388,4 +432,86 @@ ScreenManager:
             height: 60
             on_press: root.manager.current = "member" #画面遷移
 
+<AddScheduleScreen>:
+    canvas.before:
+        Rectangle:
+            source: 'images/MenuBackground.jpg'
+            pos: self.pos
+            size: self.size
 
+    BoxLayout:  #レイアウト
+        orientation: 'vertical' #縦に
+        spacing: 20
+        padding: 50
+
+        Label:
+            text: "予定追加画面（準備中）"
+            font_name: "fonts/meiryo.ttc"
+            color: 0, 0, 0, 1
+
+        Button:
+            text: "戻る"
+            font_size: '24sp'
+            font_name: "fonts/meiryo.ttc"
+            background_normal: ''
+            background_color: 0.8, 0.3, 0.3, 1
+            color: 1, 1, 1, 1
+            size_hint_y: None
+            height: 60
+            on_press: root.manager.current = "calendar" #画面遷移
+
+<UpdateScheduleScreen>:
+    canvas.before:
+        Rectangle:
+            source: 'images/MenuBackground.jpg'
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:  #レイアウト
+        orientation: 'vertical' #縦に
+        spacing: 20
+        padding: 50
+
+        Label:
+            text: "予定追更新画面（準備中）"
+            font_name: "fonts/meiryo.ttc"
+            color: 0, 0, 0, 1
+
+        Button:
+            text: "戻る"
+            font_size: '24sp'
+            font_name: "fonts/meiryo.ttc"
+            background_normal: ''
+            background_color: 0.8, 0.3, 0.3, 1
+            color: 1, 1, 1, 1
+            size_hint_y: None
+            height: 60
+            on_press: root.manager.current = "calendar" #画面遷移
+
+<DeleteScheduleScreen>:
+    canvas.before:
+        Rectangle:
+            source: 'images/MenuBackground.jpg'
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:  #レイアウト
+        orientation: 'vertical' #縦に
+        spacing: 20
+        padding: 50
+
+        Label:
+            text: "予定削除画面（準備中）"
+            font_name: "fonts/meiryo.ttc"
+            color: 0, 0, 0, 1
+
+        Button:
+            text: "戻る"
+            font_size: '24sp'
+            font_name: "fonts/meiryo.ttc"
+            background_normal: ''
+            background_color: 0.8, 0.3, 0.3, 1
+            color: 1, 1, 1, 1
+            size_hint_y: None
+            height: 60
+            on_press: root.manager.current = "calendar" #画面遷移
