@@ -110,15 +110,27 @@ class AddMemberScreen(Screen):
 
 class UpdateMemberScreen(Screen): 
     def do_update(self,update_name,update_grade):
+
+        # エラー処理
+        if search_member(update_name)==0:
+            show_popup("メンバーが存在しません")
+            return
+
         update_member(update_name,update_grade)
         show_popup("更新完了しました！")
         reset_data_up(self)
         
-class DeleteMemberScreen(Screen):
-        def do_delete(self,delete_name):
-            delete_member(delete_name)
-            show_popup("削除完了しました！")
-            reset_data_del(self)
+class DeleteMemberScreen(Screen): 
+    def do_delete(self,delete_name):
+        
+        # エラー処理
+        if search_member(delete_name)==0:
+            show_popup("メンバーが存在しません")
+            return
+
+        delete_member(delete_name)
+        show_popup("削除完了しました！")
+        reset_data_del(self)
     
 class CalendarScreen(Screen):
     # 初期化
@@ -228,6 +240,7 @@ class MyApp(App):
 if __name__ == "__main__":
     start_db()
     MyApp().run()
+
 
 
 
