@@ -76,13 +76,13 @@ def delete_member(member_name):
     conn.close()  # 接続を閉じる
 
 #メンバー更新
-def update_member(member_data, update_grade):
+def update_member(member_name, update_grade):
     #DBへの接続
     conn = sqlite3.connect(DB_name)
     #オブジェクト作成
     cursor = conn.cursor()
 
-    cursor.execute('UPDATE members SET grade = ? WHERE name = ?' , (update_grade, member_data['name'],))
+    cursor.execute('UPDATE members SET grade = ? WHERE name = ?' , (update_grade, member_name,))
     
     conn.commit() # 変更を確定
     conn.close()  # 接続を閉じる
@@ -103,3 +103,4 @@ add_member(test_member)
 #update_member(test_member, 3)
 
 get_members_list()
+
