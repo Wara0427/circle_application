@@ -64,13 +64,13 @@ def get_members_list():
     return members #変更点（戻り値）
 
 #メンバー削除
-def delete_member(member_data):
+def delete_member(member_name):
     #DBへの接続
     conn = sqlite3.connect(DB_name)
     #オブジェクト作成
     cursor = conn.cursor()
 
-    cursor.execute('DELETE FROM members WHERE name = ?' , (member_data['name'],))
+    cursor.execute('DELETE FROM members WHERE name = ?' , (member_name,))
     
     conn.commit() # 変更を確定
     conn.close()  # 接続を閉じる
@@ -101,4 +101,5 @@ add_member(test_member)
 
 #delete_member(taitai_data)
 #update_member(test_member, 3)
+
 get_members_list()
