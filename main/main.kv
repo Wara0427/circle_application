@@ -298,11 +298,37 @@ ScreenManager:
         padding: 50
 
         Label:
-            text: "名簿更新画面（準備中）"
+            text: "更新したい方の名前と更新する学年を入力してください"
             font_size: '28sp'
             font_name: "fonts/meiryo.ttc"
             color: 0, 0, 0, 1
-            bold: True
+
+        TextInput:
+            id: update_name_input
+            hint_text: "名前"
+            multiline: False
+            font_name: "fonts/meiryo.ttc"
+            size_hint_y: None
+            height: 60
+
+        TextInput:
+            id: update_grade_input
+            hint_text: "学年"
+            multiline: False
+            font_name: "fonts/meiryo.ttc"
+            size_hint_y: None
+            height: 60
+
+        Button:
+            text: "更新"
+            font_size: '24sp'
+            font_name: "fonts/meiryo.ttc"
+            background_normal: ''
+            background_color: 0.3, 0.8, 0.5, 1
+            color: 1, 1, 1, 1
+            size_hint_y: None
+            height: 60
+            on_press: root.manager.current = root.do_update(update_name_input.text,update_grade_input.text)
 
         Button:
             text: "戻る"
@@ -361,4 +387,5 @@ ScreenManager:
             size_hint_y: None
             height: 60
             on_press: root.manager.current = "member" #画面遷移
+
 
