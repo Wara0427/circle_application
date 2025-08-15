@@ -228,8 +228,10 @@ class CalendarScreen(Screen):
                     grid.add_widget(self.make_cell(str(day), color, (1, 1, 1, 1)))
         
         self.ids.month_label.text = self.get_month_year()
-
-
+        
+class AddScheduleScreen(Screen): pass
+class UpdateScheduleScreen(Screen): pass
+class DeleteScheduleScreen(Screen): pass
 
 
 class MyApp(App):
@@ -240,6 +242,7 @@ class MyApp(App):
 if __name__ == "__main__":
     start_db()
     MyApp().run()
+
 
 
 
