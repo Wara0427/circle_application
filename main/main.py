@@ -100,7 +100,13 @@ class AddMemberScreen(Screen):
         reset_data(self)
 
 class UpdateMemberScreen(Screen): pass
-class DeleteMemberScreen(Screen): pass
+class DeleteMemberScreen(Screen):
+        def do_delete(self,delete_name):
+
+        delete_member(delete_name)
+        show_popup("削除完了しました！")
+        reset_data_del(self)
+    
 class CalendarScreen(Screen):
     # 初期化
     def __init__(self,**kwargs):
@@ -209,4 +215,5 @@ class MyApp(App):
 if __name__ == "__main__":
     start_db()
     MyApp().run()
+
 
