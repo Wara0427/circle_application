@@ -207,4 +207,6 @@ class MyApp(App):
         return Builder.load_file("main.kv")
 
 if __name__ == "__main__":
+    start_db()
     MyApp().run()
+
