@@ -25,6 +25,25 @@ def start_db():
     conn.commit() # 変更を確定
     conn.close()  # 接続を閉じる
 
+def search_member(member_name):
+    #DBへの接続
+    conn = sqlite3.connect(DB_name)
+    #オブジェクト作成
+    cursor = conn.cursor()
+
+    #同じ名前のメンバーが既に存在するかどうかを確認
+    cursor.execute('SELECT id FROM members WHERE name = ?', (member_name,))
+
+    #検索結果を1件取得する
+    existing_member = cursor.fetchone() 
+
+    if existing_member is None:
+        flag=0
+    else:
+        flag=1
+
+    return flag
+
 def add_member(member_data):
     #DBへの接続
     conn = sqlite3.connect(DB_name)
@@ -103,4 +122,5 @@ add_member(test_member)
 #update_member(test_member, 3)
 
 get_members_list()
+
 
