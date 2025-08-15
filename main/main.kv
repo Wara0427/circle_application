@@ -328,11 +328,28 @@ ScreenManager:
         padding: 50
 
         Label:
-            text: "名簿削除画面（準備中）"
-            font_size: '28sp'
+            text: "削除したいデータを入力してください"
             font_name: "fonts/meiryo.ttc"
             color: 0, 0, 0, 1
-            bold: True
+
+        TextInput:
+            id: delete_name_input
+            hint_text: "名前"
+            multiline: False
+            font_name: "fonts/meiryo.ttc"
+            size_hint_y: None
+            height: 60
+
+        Button:
+            text: "削除"
+            font_size: '24sp'
+            font_name: "fonts/meiryo.ttc"
+            background_normal: ''
+            background_color: 0.3, 0.6, 0.9, 1
+            color: 1, 1, 1, 1
+            size_hint_y: None
+            height: 60
+            on_press: root.manager.current = root.do_delete(delete_name_input.text)
 
         Button:
             text: "戻る"
@@ -344,3 +361,4 @@ ScreenManager:
             size_hint_y: None
             height: 60
             on_press: root.manager.current = "member" #画面遷移
+
