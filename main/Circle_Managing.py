@@ -21,6 +21,16 @@ def start_db():
             gender TEXT
         )
     ''')
+
+    #カレンダーのテーブル作成（id, date, title, details）
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS activity_calendar (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            date TEXT NOT NULL,
+            title TEXT NOT NULL,
+            details TEXT
+        )
+    ''')
     
     conn.commit() # 変更を確定
     conn.close()  # 接続を閉じる
@@ -106,6 +116,75 @@ def update_member(member_name, update_grade):
     conn.commit() # 変更を確定
     conn.close()  # 接続を閉じる
 
+#予定を追加
+def add_schedule(activity_data):
+    #DBへの接続
+    conn = sqlite3.connect(DB_name)
+    #オブジェクト作成
+    cursor = conn.cursor()
+    #指定した日に予定を追加
+    cursor.execute('''
+                   INSERT INTO activity_calendar (date, title, details)
+                   VALUES (?, ?, ?)
+                   ''', (activity_data['date'], activity_data['title'], activity_data['details'])
+                   )
+    
+    conn.commit() # 変更を確定
+    conn.close()  # 接続を閉じる
+
+#予定を更新
+def update_schedule(activity_data, new_title, new_details, target_activity):
+    #DBへの接続
+    conn = sqlite3.connect(DB_name)
+    #オブジェクト作成
+    cursor = conn.cursor()
+
+    #該当日の予定を検索
+    cursor.execute('SELECT id FROM activity_calendar WHERE date = ?', (activity_data['date'],))
+    
+    #検索結果をすべて取得
+    activities_in_calendar = cursor.fetchall() 
+
+    #予定が存在すれば更新
+    if len(activities_in_calendar) != 0:
+        temp_id = activities_in_calendar[target_activity % len(activities_in_calendar)][0] #予定を識別する
+        cursor.execute('UPDATE activity_calender SET title = ?, details = ? WHERE id = ?' , (new_title, new_details ,temp_id,))
+    
+    conn.commit() # 変更を確定
+    conn.close()  # 接続を閉じる
+
+＃予定を削除
+def delete_schedule(activity_data, target_activity):
+    #DBへの接続
+    conn = sqlite3.connect(DB_name)
+    #オブジェクト作成
+    cursor = conn.cursor()
+
+    #該当日の予定を検索
+    cursor.execute('SELECT id FROM activity_calendar WHERE date = ?', (activity_data['date'],))
+    
+    #検索結果をすべて取得
+    activities_in_calendar = cursor.fetchall() 
+
+    #予定が存在すれば削除
+    if len(activities_in_calendar) != 0:
+        temp_id = activities_in_calendar[target_activity % len(activities_in_calendar)][0] #予定を識別する
+        cursor.execute('DELETE FROM activity_calender WHERE id = ?' , (temp_id,))
+
+    conn.commit() # 変更を確定
+    conn.close()  # 接続を閉じる
+
+#未完#
+def get_schedule(year, month):
+    #DBへの接続
+    conn = sqlite3.connect(DB_name)
+    #オブジェクト作成
+    cursor = conn.cursor()
+
+    cursor.execute('SELECT title, details FROM activity_calendar WHERE ')
+    result = cursor.fetchall()
+#未完#
+
 start_db()
 
 taitai_data = {'name' : 'taiki', 'university' : 'Doshisha', 'faculty' : 'Sci and Eng', 'department' : 'Information', 
@@ -122,5 +201,6 @@ add_member(test_member)
 #update_member(test_member, 3)
 
 get_members_list()
+
 
 
