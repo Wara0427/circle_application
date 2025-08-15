@@ -174,16 +174,24 @@ def delete_schedule(activity_data, target_activity):
     conn.commit() # 変更を確定
     conn.close()  # 接続を閉じる
 
-#未完#
+#年月からその月の予定をすべて取得
 def get_schedule(year, month):
     #DBへの接続
     conn = sqlite3.connect(DB_name)
     #オブジェクト作成
     cursor = conn.cursor()
 
-    cursor.execute('SELECT title, details FROM activity_calendar WHERE ')
-    result = cursor.fetchall()
-#未完#
+    num_of_dates = calendar.monthrange(year, month)[1] #日数を取得
+    schedules = []
+    for day in range(1, num_of_dates + 1): #その月の日数分だけ総当たりする
+        date_str = f"{year:04d}-{month:02d}-{day:02d}"
+        cursor.execute('SELECT title, details FROM activity_calendar WHERE date = ?', (date_str,))
+        day_schedules = cursor.fetchall()
+        if day_schedules:  #予定があれば保存
+            schedules.append((date_str, day_schedules))
+    
+    conn.close() # 接続を閉じる
+    return schedules
 
 start_db()
 
@@ -201,6 +209,7 @@ add_member(test_member)
 #update_member(test_member, 3)
 
 get_members_list()
+
 
 
 
