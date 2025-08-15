@@ -35,6 +35,15 @@ def reset_data(self):
     self.ids.grade_input.text=""
     self.ids.gender_input.text=""
 
+# 入力をクリア（名簿削除時）
+def reset_data_del(self):
+    self.ids.delete_name_input.text=""
+
+# 入力をクリア（名簿更新時）
+def reset_data_up(self):
+    self.ids.update_name_input.text=""
+    self.ids.update_grade_input.text=""
+
 # kvファイルの<~Screen>とつながる
 class MenuScreen(Screen): pass
 class MemberScreen(Screen):
@@ -99,7 +108,12 @@ class AddMemberScreen(Screen):
         show_popup("追加完了しました！")
         reset_data(self)
 
-class UpdateMemberScreen(Screen): pass
+class UpdateMemberScreen(Screen): 
+    def do_update(self,update_name,update_grade):
+        update_member(update_name,update_grade)
+        show_popup("更新完了しました！")
+        reset_data_up(self)
+        
 class DeleteMemberScreen(Screen):
         def do_delete(self,delete_name):
             delete_member(delete_name)
@@ -214,6 +228,7 @@ class MyApp(App):
 if __name__ == "__main__":
     start_db()
     MyApp().run()
+
 
 
 
