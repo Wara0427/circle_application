@@ -133,42 +133,42 @@ def add_schedule(activity_data):
     conn.close()  # 接続を閉じる
 
 #予定を更新
-def update_schedule(activity_data, new_title, new_details, target_activity):
+def update_schedule(date, new_title, new_details, target_activity_order):
     #DBへの接続
     conn = sqlite3.connect(DB_name)
     #オブジェクト作成
     cursor = conn.cursor()
 
     #該当日の予定を検索
-    cursor.execute('SELECT id FROM activity_calendar WHERE date = ?', (activity_data['date'],))
+    cursor.execute('SELECT id FROM activity_calendar WHERE date = ?', (date,))
     
     #検索結果をすべて取得
     activities_in_calendar = cursor.fetchall() 
 
     #予定が存在すれば更新
     if len(activities_in_calendar) != 0:
-        temp_id = activities_in_calendar[target_activity % len(activities_in_calendar)][0] #予定を識別する
+        temp_id = activities_in_calendar[target_activity_order % len(activities_in_calendar)][0] #予定を識別する
         cursor.execute('UPDATE activity_calender SET title = ?, details = ? WHERE id = ?' , (new_title, new_details ,temp_id,))
     
     conn.commit() # 変更を確定
     conn.close()  # 接続を閉じる
 
 ＃予定を削除
-def delete_schedule(activity_data, target_activity):
+def delete_schedule(date, target_activity_order):
     #DBへの接続
     conn = sqlite3.connect(DB_name)
     #オブジェクト作成
     cursor = conn.cursor()
 
     #該当日の予定を検索
-    cursor.execute('SELECT id FROM activity_calendar WHERE date = ?', (activity_data['date'],))
+    cursor.execute('SELECT id FROM activity_calendar WHERE date = ?', (date,))
     
     #検索結果をすべて取得
     activities_in_calendar = cursor.fetchall() 
 
     #予定が存在すれば削除
     if len(activities_in_calendar) != 0:
-        temp_id = activities_in_calendar[target_activity % len(activities_in_calendar)][0] #予定を識別する
+        temp_id = activities_in_calendar[target_activity_order % len(activities_in_calendar)][0] #予定を識別する
         cursor.execute('DELETE FROM activity_calender WHERE id = ?' , (temp_id,))
 
     conn.commit() # 変更を確定
@@ -209,6 +209,7 @@ add_member(test_member)
 #update_member(test_member, 3)
 
 get_members_list()
+
 
 
 
